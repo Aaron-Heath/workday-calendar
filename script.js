@@ -2,8 +2,11 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
-
+  var $timeBlocks = $("body").children("div").children("div");
   var $currentDay = $("#currentDay");
+
+  var now = dayjs();
+  var militaryHour = now.format("H")
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -16,11 +19,30 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
+  function renderBlocks() {
+    for (let $child of $timeBlocks) {
+      let childHour = $child.id.split("-")[1];
+      console.log(childHour);
+
+      // Flow control: Add class past, present, or future based on the childElement's ID.
+      if(parseInt(childHour) < parseInt(militaryHour)) {
+        $($child).addClass("past");
+      }
+      else if(childHour === now.format("H")) {
+        $($child).addClass("present");
+      } else {
+        $($child).addClass("future");
+
+      }
+    }
+  }
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-  $currentDay.text(dayjs().format("dddd MMMM D, YYYY"))
+  $currentDay.text(now.format("dddd MMMM D, YYYY"))
+
+  renderBlocks();
 });
