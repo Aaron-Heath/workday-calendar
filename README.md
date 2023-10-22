@@ -6,7 +6,7 @@ The application will validate user input to ensure that it conforms to the varia
 
 See the a screenshot below:
 
-![Password Generator Screenshot](./workday_calendar.png)
+![workday calendar screenshot](./workday-calendar.png)
 
 ## Installation
 
